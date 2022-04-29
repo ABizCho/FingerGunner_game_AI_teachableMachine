@@ -1,0 +1,11 @@
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        if (prediction[0].probability.toFixed(2) > 0.5) {
+            labelContainer.childNodes[0].innerHTML = "당신에게는 강아지가 잘 어울립니다";
+        } else if(prediction[1].probability.toFixed(2) > 0.5) {
+            labelContainer.childNodes[0].innerHTML = "당신에게는 고양이가 잘 어울립니다";
+        } else {
+            labelContainer.childNodes[0].innerHTML = "당신에게 어울리는 반려동물을 찾지 못했습니다";
+        }
+    }
