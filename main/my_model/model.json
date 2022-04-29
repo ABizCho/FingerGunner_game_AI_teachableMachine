@@ -2,17 +2,17 @@
   "modelTopology": {
     "class_name": "Sequential",
     "config": {
-      "name": "sequential_24",
+      "name": "sequential_4",
       "layers": [
         {
           "class_name": "Sequential",
           "config": {
-            "name": "sequential_21",
+            "name": "sequential_1",
             "layers": [
               {
                 "class_name": "Model",
                 "config": {
-                  "name": "model6",
+                  "name": "model1",
                   "layers": [
                     {
                       "name": "input_1",
@@ -4158,7 +4158,7 @@
                 "class_name": "GlobalAveragePooling2D",
                 "config": {
                   "data_format": "channels_last",
-                  "name": "global_average_pooling2d_GlobalAveragePooling2D6",
+                  "name": "global_average_pooling2d_GlobalAveragePooling2D1",
                   "trainable": true
                 }
               }
@@ -4168,7 +4168,7 @@
         {
           "class_name": "Sequential",
           "config": {
-            "name": "sequential_23",
+            "name": "sequential_3",
             "layers": [
               {
                 "class_name": "Dense",
@@ -4191,7 +4191,7 @@
                   "activity_regularizer": null,
                   "kernel_constraint": null,
                   "bias_constraint": null,
-                  "name": "dense_Dense11",
+                  "name": "dense_Dense1",
                   "trainable": true,
                   "batch_input_shape": [null, 1280],
                   "dtype": "float32"
@@ -4218,7 +4218,7 @@
                   "activity_regularizer": null,
                   "kernel_constraint": null,
                   "bias_constraint": null,
-                  "name": "dense_Dense12",
+                  "name": "dense_Dense2",
                   "trainable": true
                 }
               }
@@ -4963,13 +4963,13 @@
         { "name": "Conv_1_bn/gamma", "shape": [1280], "dtype": "float32" },
         { "name": "Conv_1_bn/beta", "shape": [1280], "dtype": "float32" },
         {
-          "name": "dense_Dense11/kernel",
+          "name": "dense_Dense1/kernel",
           "shape": [1280, 100],
           "dtype": "float32"
         },
-        { "name": "dense_Dense11/bias", "shape": [100], "dtype": "float32" },
+        { "name": "dense_Dense1/bias", "shape": [100], "dtype": "float32" },
         {
-          "name": "dense_Dense12/kernel",
+          "name": "dense_Dense2/kernel",
           "shape": [100, 3],
           "dtype": "float32"
         },
