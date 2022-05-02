@@ -1,36 +1,37 @@
 const URL = "./my_model/";
 let model, webcam, ctx, labelContainer, maxPredictions;
 
-let audio_reload, audio_shoot;
-audio_shoot = new Audio("./assets/sound/silencerShoot1_p.mp3");
-audio_reload = new Audio("./assets/sound/reload0_p.wav");
+///
+const audio_shoot = new Audio("./assets/sound/silencerShoot1_p.mp3");
+const audio_reload = new Audio("./assets/sound/reload0_p.wav");
 
 function reload() {
   audio_reload.play();
 }
+
+const BulletColors = [
+  "#fb4c00",
+  "#fc0000",
+  "#fc0000",
+  "#fc0000",
+  "#b00000",
+  "#960000",
+  "#620000",
+  "#590000",
+  "#340000",
+  "#190000",
+  "#000000",
+];
+const canvas_bullet = document.getElementById("canvas_bullet");
+canvas_bullet.width = 100;
+canvas_bullet.height = 100;
+const ctx_bullet = canvas_bullet.getContext("2d");
+
 function shoot() {
   audio_shoot.play();
 
-  let canvas_bullet, ctx_bullet, BulletColors;
-  canvas_bullet = document.getElementById("canvas_bullet");
-  ctx_bullet = canvas_bullet.getContext("2d");
-  BulletColors = [
-    "#fb4c00",
-    "#fc0000",
-    "#fc0000",
-    "#fc0000",
-    "#b00000",
-    "#960000",
-    "#620000",
-    "#590000",
-    "#340000",
-    "#190000",
-    "#000000",
-  ];
-  canvas_bullet.width = window.innerWidth - 500;
-  canvas_bullet.height = window.innerHeight - 500;
+  ctx_bullet.arc(50, 50, 10, 10, 0, 2 * Math.PI);
 
-  ctx_bullet.arc(600, 200, 10, 0, 2 * Math.PI);
   ctx_bullet.stroke();
   ctx_bullet.fillStyle = BulletColors[0];
   ctx_bullet.fill();
@@ -46,6 +47,8 @@ function shoot() {
     .getContext("2d")
     .clearRect(0, 0, canvas_bullet.width, canvas_bullet.height);
 }
+///
+
 async function init() {
   $("#title_main").fadeOut("slow");
   $("#title_sub").fadeOut("slow");
