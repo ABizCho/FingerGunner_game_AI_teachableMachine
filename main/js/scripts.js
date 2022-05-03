@@ -5,10 +5,6 @@ let model, webcam, ctx, labelContainer, maxPredictions;
 const audio_shoot = new Audio("./assets/sound/silencerShoot1_p.mp3");
 const audio_reload = new Audio("./assets/sound/reload0_p.wav");
 
-function reload() {
-  audio_reload.play();
-}
-
 const BulletColors = [
   "#fb4c00",
   "#fc0000",
@@ -27,15 +23,17 @@ canvas_bullet.width = 100;
 canvas_bullet.height = 100;
 const ctx_bullet = canvas_bullet.getContext("2d");
 
+function reload() {
+  audio_reload.play();
+}
+
 function shoot() {
   audio_shoot.play();
 
   ctx_bullet.arc(50, 50, 10, 10, 0, 2 * Math.PI);
 
   ctx_bullet.stroke();
-  ctx_bullet.fillStyle = BulletColors[0];
-  ctx_bullet.fill();
-  for (i = 1; i < BulletColors.length - 1; i++) {
+  for (i = 0; i < BulletColors.length - 1; i++) {
     (function (x) {
       setTimeout(function () {
         ctx_bullet.fillStyle = BulletColors[x];
@@ -43,9 +41,7 @@ function shoot() {
       }, 50 * x);
     })(i);
   }
-  canvas_bullet
-    .getContext("2d")
-    .clearRect(0, 0, canvas_bullet.width, canvas_bullet.height);
+  ctx_bullet.clearRect(0, 0, 100, 100);
 }
 ///
 
@@ -54,8 +50,6 @@ async function init() {
   $("#title_sub").fadeOut("slow");
   $("#button_start").fadeOut("slow");
 
-  reload();
-  shoot();
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
 
@@ -98,13 +92,15 @@ async function predict() {
   // Prediction 2: run input through teachable machine classification model
   const prediction = await model.predict(posenetOutput);
 
-  if (prediction[0].probability.toFixed(2) > 0.7) {
-    labelContainer.childNodes[0].innerHTML = "대기중";
-  } else if (prediction[1].probability.toFixed(2) > 0.5) {
+  if (prediction[1].probability.toFixed(2) > 0.8) {
     labelContainer.childNodes[0].innerHTML = "땅!";
     shoot();
-  } else if (prediction[1].probability.toFixed(2) > 0.4) {
-    labelContainer.childNodes[0].innerHTML = "장전중..";
+  } else if (prediction[0].probability.toFixed(2) > 0.4) {
+    labelContainer.childNodes[0].innerHTML = "대기중";
+    ctx_bullet.clearRect(0, 0, 100, 100);
+  } else if (prediction[2].probability.toFixed(2) == 1) {
+    labelContainer.childNodes[0].innerHTML = "장전 중";
+    ctx_bullet.clearRect(0, 0, 100, 100);
     reload();
   }
   // for (let i = 0; i < maxPredictions; i++) {
